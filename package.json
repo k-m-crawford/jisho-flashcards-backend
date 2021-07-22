@@ -1,0 +1,27 @@
+{
+  "name": "jisho-flashcards-backend",
+  "version": "1.0.0",
+  "description": "Create SRS flash-cards for definitions & words pulled from Jisho.org; pull pre-defined groupings such as JLPT 5/4/3/2/1.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "jisho",
+    "japanese",
+    "srs",
+    "flashcards"
+  ],
+  "author": "Kelly Crawford",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.3",
+    "nodemon": "^2.0.12",
+    "phin": "^3.6.0",
+    "unofficial-jisho-api": "^2.2.0"
+  }
+}
