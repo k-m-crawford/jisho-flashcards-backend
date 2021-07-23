@@ -1,12 +1,11 @@
 const mongoose = require('mongoose')
 
 const wordSchema = new mongoose.Schema({
-    slug: {
+    wordSlug: {
         type: String,
         minLength: 1,
-        required: true,
-        unique: true
-    }
+        required: true
+    },
 })
 
 wordSchema.set('toJSON', {

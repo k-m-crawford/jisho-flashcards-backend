@@ -14,18 +14,4 @@ jishoProxy.get('/kanji/:query', async (req, res) =>{
     res.send(hits)
 })
 
-jishoProxy.post('/kanji', async (req, res) => {
-
-    const result = await Kanji.updateOne({ kanji: req.body.kanji },
-        {
-            $set: {
-                kanji: req.body.kanji
-            }
-        },
-        {upsert: true}, (e, r) => { if(e) {console.log(e)}})
-
-    res.send(result)
-
-})
-
 module.exports = jishoProxy

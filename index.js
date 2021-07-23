@@ -8,7 +8,11 @@ app.use(express.json())
 app.use(cors())
 
 const jishoProxyRouter = require('./controllers/jishoproxy')
+const dbPath = require('./controllers/databasepath')
+const userPath = require('./controllers/userpath')
 app.use('/', jishoProxyRouter)
+app.use('/db/', dbPath)
+app.use('/users/', userPath)
 
 const url = process.env.MONGODB_URI
 
