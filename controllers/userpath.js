@@ -6,9 +6,9 @@ const User = require('../models/user')
 userPath.post('/addReview/:username', async (req, res) => {
 
     const curDate = new Date()
-    const nextReview = new Date(curDate.getFullYear(), curDate.getMonth(), curDate.getDay(),
-                                curDate.getHours() + 4, curDate.getMinutes(), curDate.getSeconds(), 0 )
-
+    const nextReview = new Date(curDate.getFullYear(), curDate.getMonth(), curDate.getDate(),
+                                curDate.getHours() + 4, curDate.getMinutes(), curDate.getSeconds())
+    
     const setToAdd = req.body.kanji ?
         {
             kanjiBank: { kanji: req.body.kanji,
@@ -60,7 +60,63 @@ userPath.get('/checkReview/:type/:username/:ref', async (req, res) => {
             else if(d)
                 res.status(200).end()
             else
+                res.status(204).end()
+        })
+
+})
+
+userPath.get('/getReviews/all/:type/:username', async (req, res) => {
+    await User.findOne({ username: req.params.username }, 
+        (e, d) => {
+            if(e){
+                console.log(e)
                 res.status(404).end()
+            }
+            else if(d){
+                if(req.params.type === 'kanji') 
+                    res.status(200).send(d.kanjiBank)
+                else if(req.params.type === 'word')
+                    res.status(200).send(d.wordBank)
+                else if(req.params.type === 'all')
+                    res.status(200).send({ kanji: d.kanjiBank, words: d.wordBank })
+                else
+                    res.status(204).end()
+            }
+            else
+                res.status(204).end()
+        })
+})
+
+userPath.get('/getReviews/due/one/:type/:username', async (req, res) => {
+
+    await User.findOne({ username: req.params.username }, 
+        (e, d) => {
+            if(e){
+                console.log(e)
+                res.status(404).end()
+            }
+            else if(d){
+                
+                let toSearch = null
+
+                if(req.params.type === 'kanji')
+                    toSearch = d.kanjiBank
+                else if(req.params.type === 'word')
+                    toSearch = d.wordBank
+                else if(req.params.type === 'all')
+                    toSearch = d.kanjiBank.concat(d.wordBank)
+                
+                const rev = toSearch.find(r => (new Date(r.nextReview)) < (new Date()))
+
+                if(rev)
+                    res.status(200).send(rev)
+                else
+                    res.status(204).end()
+
+            }
+            else{
+                res.status(204).end()
+            }
         })
 
 })
