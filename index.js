@@ -11,9 +11,9 @@ app.use(express.static('build'))
 const jishoProxyRouter = require('./controllers/jishoproxy')
 const dbPath = require('./controllers/databasepath')
 const userPath = require('./controllers/userpath')
-app.use('/', jishoProxyRouter)
-app.use('/db/', dbPath)
-app.use('/users/', userPath)
+app.use('/api/', jishoProxyRouter)
+app.use('/api/db/', dbPath)
+app.use('/api/users/', userPath)
 
 const url = process.env.MONGODB_URI
 
