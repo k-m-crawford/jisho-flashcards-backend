@@ -6,6 +6,7 @@ const app = express()
 require('dotenv').config()
 app.use(express.json())
 app.use(cors())
+app.use(express.static('build'))
 
 const jishoProxyRouter = require('./controllers/jishoproxy')
 const dbPath = require('./controllers/databasepath')
