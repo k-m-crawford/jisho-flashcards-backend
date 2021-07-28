@@ -6,10 +6,16 @@ const mongoose = require('mongoose')
 const app = express()
 require('dotenv').config()
 app.use(express.json())
-app.use(cors())
 
-if(process.env.NODE_ENV === 'production') 
+if(process.env.NODE_ENV === 'production') {
   app.use(express.static('build'))
+  app.use(cors({
+    origin: "jrenshuu.herokuapp.com"
+  }))
+
+}
+else
+  app.use(cors())
 
 const jishoProxyRouter = require('./controllers/jishoproxy')
 const dbPath = require('./controllers/databasepath')
