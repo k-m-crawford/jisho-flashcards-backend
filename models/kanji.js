@@ -5,7 +5,11 @@ const kanjiSchema = new mongoose.Schema({
         type: String,
         minLength: 1,
         required: true,
-        unique: true
+        dropDups: true
+    },
+    data: {
+        type: Object,
+        required: true
     }
 })
 

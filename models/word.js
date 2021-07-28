@@ -4,8 +4,13 @@ const wordSchema = new mongoose.Schema({
     wordSlug: {
         type: String,
         minLength: 1,
-        required: true
+        required: true,
+        dropDups: true
     },
+    data: {
+        type: Object,
+        required: true
+    }
 })
 
 wordSchema.set('toJSON', {
