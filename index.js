@@ -6,7 +6,9 @@ const app = express()
 require('dotenv').config()
 app.use(express.json())
 app.use(cors())
-app.use(express.static('build'))
+
+if(process.env.NODE_ENV === 'production') 
+  app.use(express.static('build'))
 
 const jishoProxyRouter = require('./controllers/jishoproxy')
 const dbPath = require('./controllers/databasepath')
@@ -14,6 +16,10 @@ const userPath = require('./controllers/userpath')
 app.use('/api/', jishoProxyRouter)
 app.use('/api/db/', dbPath)
 app.use('/api/users/', userPath)
+
+app.get('*', (req,res) => {
+  res.sendFile(path.join(__dirname, '/build' , 'index.html'))
+})
 
 const url = process.env.MONGODB_URI
 
