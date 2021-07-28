@@ -18,7 +18,7 @@ app.use('/api/db/', dbPath)
 app.use('/api/users/', userPath)
 
 app.get('*', (req,res) => {
-  res.sendFile(path.join(__dirname, '/build' , 'index.html'))
+  res.sendFile(path.join(__dirname, '/build/index.html'))
 })
 
 const url = process.env.MONGODB_URI
