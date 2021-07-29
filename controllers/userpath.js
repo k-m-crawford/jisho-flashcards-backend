@@ -5,15 +5,19 @@ const User = require('../models/user')
 
 userPath.post('/addReview/:username', async (req, res) => {
 
+    const now = new Date()
+    const nextReview = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
+                                now.getHours() + 4, now.getMinutes(), now.getSeconds()) 
+
     const setToAdd = req.body.kanji ?
         {
             kanjiBank: { kanji: req.body.kanji,
-                        nextReview: req.body.nextReview,
+                        nextReview: nextReview,
                         level: 1 }
         } :
         {
             wordBank: {  wordSlug: req.body.wordSlug,
-                         nextReview: req.body.nextReview,
+                         nextReview: nextReview,
                          level: 1 }
         }
 
