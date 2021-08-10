@@ -94,7 +94,7 @@ userPath.put('/updateReview/:type/:username/', async (req, res) => {
 
     const updateLookup = req.params.type === 'kanji' ? { username: req.params.username, 'kanjiBank.kanji': req.body.ref }
                                                      : { username: req.params.username, 'wordBank.wordSlug': req.body.ref }
-    const bank = req.params.type === 'kanji' ? { 'kanjiBank.$.nextReview': nextReview, 'kanjBank.$.level': req.body.newLevel } 
+    const bank = req.params.type === 'kanji' ? { 'kanjiBank.$.nextReview': nextReview, 'kanjiBank.$.level': req.body.newLevel } 
                                                  : { 'wordBank.$.nextReview': nextReview, 'wordBank.$.level': req.body.newLevel }
 
     console.log(bank)
