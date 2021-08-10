@@ -92,6 +92,9 @@ userPath.put('/updateReview/:type/:username/', async (req, res) => {
             nextReview = new Date(now.getFullYear(), now.getMonth() + 4, now.getDate(),
                 now.getHours(), now.getMinutes(), curDate.getSeconds(), 0)
             break
+        case 9:
+            nextReview = null
+            break
     }
 
     console.log(nextReview.toString())
@@ -177,7 +180,7 @@ userPath.get('/getReviews/due/one/:type/:username', async (req, res) => {
                 else if(req.params.type === 'all')
                     toSearch = d.kanjiBank.concat(d.wordBank)
                 
-                const rev = toSearch.find(r => (r.nextReview < (new Date())))
+                const rev = toSearch.find(r => ((r.nextReview !== null) && (r.nextReview < (new Date()))))
 
                 if(rev)
                     res.status(200).send(rev)
